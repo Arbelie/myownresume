@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>龚心怡 - 新媒体编辑 & 女子巡逻队员</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #FF6B9D;
+            --secondary: #C44569;
+            --accent: #F8B500;
+            --dark: #2D3436;
+            --light: #FFF5F7;
+            --gradient: linear-gradient(135deg, #FF6B9D 0%, #C44569 50%, #F8B500 100%);
+            --gradient-soft: linear-gradient(135deg, #FFE0EC 0%, #FFF5E6 100%);
+        }
+
+        body {
+            font-family: 'Noto Sans SC', 'Poppins', sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* 动态背景粒子 */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.4;
+        }
+
+        .bg-animation span {
+            position: absolute;
+            display: block;
+            width: 20px;
+            height: 20px;
+            background: var(--primary);
+            border-radius: 50%;
+            animation: float 15s infinite;
+            opacity: 0.3;
+        }
+
+        .bg-animation span:nth-child(1) { left: 10%; animation-delay: 0s; width: 40px; height: 40px; background: var(--accent); }
+        .bg-animation span:nth-child(2) { left: 30%; animation-delay: 2s; width: 25px; height: 25px; }
+        .bg-animation span:nth-child(3) { left: 50%; animation-delay: 4s; width: 35px; height: 35px; background: var(--secondary); }
+        .bg-animation span:nth-child(4) { left: 70%; animation-delay: 0s; width: 30px; height: 30px; background: var(--accent); }
+        .bg-animation span:nth-child(5) { left: 90%; animation-delay: 3s; width: 45px; height: 45px; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.3; }
+            90% { opacity: 0.3; }
+            100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* 头部区域 */
+        .hero {
+            background: var(--gradient);
+            border-radius: 30px;
+            padding: 60px 40px;
+            margin: 30px 0;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(255, 107, 157, 0.3);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 400px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 300px;
+            height: 300px;
+            background: rgba(248, 181, 0, 0.2);
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            margin-bottom: 20px;
+            font-weight: 500;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 900;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .hero .subtitle {
+            font-size: 20px;
+            opacity: 0.95;
+            margin-bottom: 25px;
+            font-weight: 300;
+        }
+
+        .hero-contact {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            font-size: 15px;
+        }
+
+        .hero-contact span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 8px 16px;
+            border-radius: 50px;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+
+        .hero-contact span:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* 板块通用样式 */
+        .section {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient);
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title .icon {
+            width: 45px;
+            height: 45px;
+            background: var(--gradient);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+        }
+
+        /* 关于我 */
+        .about-text {
+            font-size: 16px;
+            color: #555;
+            line-height: 2;
+        }
+
+        .about-highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .highlight-card {
+            background: var(--gradient-soft);
+            padding: 20px;
+            border-radius: 16px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .highlight-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.15);
+        }
+
+        .highlight-card .emoji {
+            font-size: 32px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .highlight-card h4 {
+            color: var(--secondary);
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .highlight-card p {
+            font-size: 13px;
+            color: #777;
+        }
+
+        /* 经历时间线 */
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--gradient);
+            border-radius: 3px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+            padding-left: 25px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -26px;
+            top: 5px;
+            width: 16px;
+            height: 16px;
+            background: var(--primary);
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px var(--primary);
+        }
+
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .timeline-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .timeline-company {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .timeline-time {
+            background: var(--gradient-soft);
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            color: var(--secondary);
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .timeline-desc {
+            color: #666;
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        .timeline-desc ul {
+            margin-left: 20px;
+            margin-top: 8px;
+        }
+
+        .timeline-desc li {
+            margin-bottom: 5px;
+        }
+
+        /* 技能标签 */
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .skill-tag {
+            background: white;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-size: 15px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+
+        .skill-tag:hover {
+            background: var(--gradient);
+            color: white;
+            border-color: transparent;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 107, 157, 0.3);
+        }
+
+        .skill-tag.highlight {
+            background: var(--gradient);
+            color: white;
+            border-color: transparent;
+        }
+
+        /* 证书展示 */
+        .certs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .cert-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 18px;
+            background: var(--gradient-soft);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .cert-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 20px rgba(255, 107, 157, 0.1);
+        }
+
+        .cert-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .cert-info h4 {
+            color: var(--dark);
+            font-size: 15px;
+        }
+
+        .cert-info p {
+            color: #888;
+            font-size: 13px;
+        }
+
+        /* 作品集 - 核心区域 */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .portfolio-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid transparent;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--primary);
+            box-shadow: 0 20px 50px rgba(255, 107, 157, 0.2);
+        }
+
+        .portfolio-card-header {
+            height: 160px;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .portfolio-card-header::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: white;
+            border-radius: 50% 50% 0 0;
+        }
+
+        .portfolio-card-body {
+            padding: 25px;
+        }
+
+        .portfolio-card-body h3 {
+            font-size: 18px;
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+
+        .portfolio-card-body p {
+            font-size: 14px;
+            color: #777;
+            line-height: 1.6;
+        }
+
+        .portfolio-card-body .tag {
+            display: inline-block;
+            background: var(--gradient-soft);
+            color: var(--secondary);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-top: 12px;
+            font-weight: 500;
+        }
+
+        .portfolio-card-body .link-hint {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 15px;
+            color: var(--primary);
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        /* 英文作品特殊标记 */
+        .portfolio-card.english .portfolio-card-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .portfolio-card.english .tag {
+            background: #E0E7FF;
+            color: #4C51BF;
+        }
+
+        /* AI作品特殊标记 */
+        .portfolio-card.ai .portfolio-card-header {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        }
+
+        .portfolio-card.ai .tag {
+            background: #D1FAE5;
+            color: #059669;
+        }
+
+        /* 占位卡片 */
+        .portfolio-card.placeholder {
+            opacity: 0.7;
+        }
+
+        .portfolio-card.placeholder .portfolio-card-header {
+            background: #E5E7EB;
+        }
+
+        .portfolio-card.placeholder .portfolio-card-header::before {
+            content: '⏳';
+            font-size: 40px;
+        }
+
+        /* 页脚 */
+        .footer {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+            font-size: 14px;
+        }
+
+        .footer .heart {
+            color: var(--primary);
+            animation: heartbeat 1.5s infinite;
+            display: inline-block;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 32px; }
+            .hero { padding: 40px 25px; }
+            .section { padding: 25px; }
+            .portfolio-grid { grid-template-columns: 1fr; }
+            .hero-contact { flex-direction: column; }
+            .timeline-header { flex-direction: column; }
+        }
+
+        /* 滚动动画 */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 动态背景 -->
+    <div class="bg-animation">
+        <span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <div class="container">
+        
+        <!-- 头部 -->
+        <header class="hero">
+            <div class="hero-content">
+                <div class="hero-badge">✨ 积极 · 敏锐 · 充满网感</div>
+                <h1>龚心怡</h1>
+                <p class="subtitle">新媒体编辑 & 女子巡逻队队员 | New Media Editor & Patrol Team Member</p>
+                <div class="hero-contact">
+                    <span>📧 gongxygracia@163.com</span>
+                    <span>📱 150-7929-2750</span>
+                    <span>📍 庐山风景区</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- 关于我 -->
+        <section class="section fade-in">
+            <h2 class="section-title">
+                <div class="icon">👋</div>
+                关于我 About Me
+            </h2>
+            <p class="about-text">
+                英语专业出身的新媒体编辑，兼具<strong>扎实的双语功底</strong>与<strong>敏锐的网络嗅觉</strong>。从校园剧社的舞台到庐山风景区的巡逻路线，从翻译公司的严谨训练到新媒体运营的创意爆发——我始终以积极大方的态度拥抱每一个角色。擅长用AI工具赋能内容创作，热衷于将复杂信息转化为有趣、有温度、有传播力的作品。
+            </p>
+            <div class="about-highlights">
+                <div class="highlight-card">
+                    <span class="emoji">💬</span>
+                    <h4>沟通能力</h4>
+                    <p>剧社演员+舞台监督<br>多场景协作经验</p>
+                </div>
+                <div class="highlight-card">
+                    <span class="emoji">🌐</span>
+                    <h4>英语能力</h4>
+                    <p>专四+口语证书<br>全英科普视频创作</p>
+                </div>
+                <div class="highlight-card">
+                    <span class="emoji">⚡</span>
+                    <h4>网感敏锐</h4>
+                    <p>多篇高阅读量文章<br>精准把握传播热点</p>
+                </div>
+                <div class="highlight-card">
+                    <span class="emoji">🎨</span>
+                    <h4>设计编辑</h4>
+                    <p>AI视频+智能体<br>公众号运营</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 工作经历 -->
+        <section class="section fade-in">
+            <h2 class="section-title">
+                <div class="icon">💼</div>
+                工作经历 Experience
+            </h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <div>
+                            <div class="timeline-title">女子巡逻队队员</div>
+                            <div class="timeline-company">庐山风景区</div>
+                        </div>
+                        <span class="timeline-time">2025.08 - 至今</span>
+                    </div>
+                    <div class="timeline-desc">
+                        负责景区巡逻与游客服务工作，以积极大方的形象展示庐山风貌，为游客提供咨询与帮助。
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <div>
+                            <div class="timeline-title">新媒体编辑</div>
+                            <div class="timeline-company">武汉荣榜科技有限公司 · 知识付费事业部</div>
+                        </div>
+                        <span class="timeline-time">2023.06 - 2025.08</span>
+                    </div>
+                <div class="timeline-desc">
+    <ul>
+        <li>独立撰写与审核公众号稿件，负责日常运营、读者互动与文章发布</li>
+        <li>产出多篇高阅读量文章，精准把握职场人群体内容偏好</li>
+        <li>向中国大学生在线等权威平台成功投稿</li>
+        <li>为团队制作<a href="https://yuanqi.tencent.com/agent/X713CJ6CMBX9?from=share" target="_blank" style="color: var(--primary); text-decoration: underline; font-weight: 600;">答疑助手智能体（点击跳转智能体）</a>，并参加腾讯元器内容创作者挑战季活动</li>
+    </ul>
+</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <div>
+                            <div class="timeline-title">翻译在线实习生</div>
+                            <div class="timeline-company">上海译国译民翻译服务有限公司</div>
+                        </div>
+                        <span class="timeline-time">2022.03 - 2022.06</span>
+                    </div>
+                    <div class="timeline-desc">
+                        参与翻译岗前培训，系统提升翻译技能；组建项目组完成翻译实践项目，培养团队协作与专业素养。
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 教育背景 -->
+        <section class="section fade-in">
+            <h2 class="section-title">
+                <div class="icon">🎓</div>
+                教育背景 Education
+            </h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <div>
+                            <div class="timeline-title">英语专业 本科</div>
+                            <div class="timeline-company">华中农业大学</div>
+                        </div>
+                        <span class="timeline-time">2019.09 - 2023.06</span>
+                    </div>
+                    <div class="timeline-desc">
+                        <ul>
+                            <li>外国语学院镜灵剧社成员（2019-2021），担任演员及舞台监督</li>
+                            <li>获华中农业大学第12届心理情景剧大赛三等奖（团体）</li>
+                            <li>自主制作多部英语科普短视频，负责画面绘制、素材准备、人物演绎与配音</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 专业技能 -->
+        <section class="section fade-in">
+            <h2 class="section-title">
+                <div class="icon">🛠️</div>
+                专业技能 Skills
+            </h2>
+            <div class="skills-container">
+                <span class="skill-tag highlight">新媒体运营</span>
+                <span class="skill-tag highlight">公众号编辑</span>
+                <span class="skill-tag highlight">内容策划</span>
+                <span class="skill-tag">中英翻译</span>
+                <span class="skill-tag">英语配音</span>
+                <span class="skill-tag">视频剪辑</span>
+                <span class="skill-tag">AI视频制作</span>
+                <span class="skill-tag">AI智能体开发</span>
+                <span class="skill-tag">网站搭建</span>
+                <span class="skill-tag">Word/Excel/PPT</span>
+                <span class="skill-tag">Canva/PS基础</span>
+                <span class="skill-tag">热点捕捉</span>
+            </div>
+        </section>
+
+        <!-- 证书 -->
+        <section class="section fade-in">
+            <h2 class="section-title">
+                <div class="icon">📜</div>
+                证书资质 Certifications
+            </h2>
+            <div class="certs-grid">
+                <div class="cert-item">
+                    <div class="cert-icon">🎯</div>
+                    <div class="cert-info">
+                        <h4>英语专业四级 TEM-4</h4>
+                        <p>笔试 + 口语证书</p>
+                    </div>
+                </div>
+                <div class="cert-item">
+                    <div class="cert-icon">🎯</div>
+                    <div class="cert-info">
+                        <h4>大学英语六级 CET-6</h4>
+                        <p>笔试证书</p>
+                    </div>
+                </div>
+                <div class="cert-item">
+                    <div class="cert-icon">🎯</div>
+                    <div class="cert-info">
+                        <h4>大学英语四级 CET-4</h4>
+                        <p>笔试证书</p>
+                    </div>
+                </div>
+                <div class="cert-item">
+                    <div class="cert-icon">🎤</div>
+                    <div class="cert-info">
+                        <h4>普通话水平测试</h4>
+                        <p>二级甲等</p>
+                    </div>
+                </div>
+                <div class="cert-item">
+                    <div class="cert-icon">💻</div>
+                    <div class="cert-info">
+                        <h4>计算机应用</h4>
+                        <p>熟练 Office 办公软件</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 作品集 - 核心展示 -->
+        <section class="section fade-in">
+            <h2 class="section-title">
+                <div class="icon">🎨</div>
+                作品集 Portfolio
+                <span style="font-size:14px;color:#999;font-weight:400;margin-left:10px;">点击卡片即可查看作品 👇</span>
+            </h2>
+            <div class="portfolio-grid">
+                
+                <!-- 公众号文章 -->
+                <a href="https://mp.weixin.qq.com/s/nWjs3wzwN3l-KmfUi7EBSg" target="_blank" class="portfolio-card">
+                    <div class="portfolio-card-header">📝</div>
+                    <div class="portfolio-card-body">
+                        <h3>中国大学生在线投稿</h3>
+                        <p>成功向国家级平台投稿，展现内容策划与撰稿能力</p>
+                        <span class="tag">新媒体写作</span>
+                        <div class="link-hint">点击查看文章 →</div>
+                    </div>
+                </a>
+
+                <a href="https://mp.weixin.qq.com/s/s9utMyAVHw4G7KnVJeAQxw" target="_blank" class="portfolio-card">
+                    <div class="portfolio-card-header">📈</div>
+                    <div class="portfolio-card-body">
+                        <h3>高阅读量文章 #1</h3>
+                        <p>精准把握热点话题，实现高传播效果的爆款内容</p>
+                        <span class="tag">爆款内容</span>
+                        <div class="link-hint">点击查看文章 →</div>
+                    </div>
+                </a>
+
+                <a href="https://mp.weixin.qq.com/s/LTuTyYHMqle9is2XhsyKIg" target="_blank" class="portfolio-card">
+                    <div class="portfolio-card-header">📈</div>
+                    <div class="portfolio-card-body">
+                        <h3>高阅读量文章 #2</h3>
+                        <p>持续输出高质量内容，验证网感与选题敏锐度</p>
+                        <span class="tag">爆款内容</span>
+                        <div class="link-hint">点击查看文章 →</div>
+                    </div>
+                </a>
+
+                <a href="https://mp.weixin.qq.com/s/nH8pRhDcm-OjdbBopLPO0Q" target="_blank" class="portfolio-card">
+                    <div class="portfolio-card-header">📈</div>
+                    <div class="portfolio-card-body">
+                        <h3>高阅读量文章 #3</h3>
+                        <p>多篇高阅读验证稳定的新媒体运营与编辑能力</p>
+                        <span class="tag">爆款内容</span>
+                        <div class="link-hint">点击查看文章 →</div>
+                    </div>
+                </a>
+
+                <!-- AI作品 -->
+                <a href="https://mp.weixin.qq.com/s/7abEZuilTkMHi2Y9rLZ1pA" target="_blank" class="portfolio-card ai">
+                    <div class="portfolio-card-header">🤖</div>
+                    <div class="portfolio-card-body">
+                        <h3>AI制作视频</h3>
+                        <p>运用AI技术赋能视频创作，展现前沿工具应用能力</p>
+                        <span class="tag">AI创作</span>
+                        <div class="link-hint">点击查看视频制作教程 →</div>
+                    </div>
+                </a>
+
+<a href="https://yuanqi.tencent.com/agent/X713CJ6CMBX9?from=share" target="_blank" class="portfolio-card ai">
+    <div class="portfolio-card-header">🤖</div>
+    <div class="portfolio-card-body">
+        <h3>腾讯元器智能体</h3>
+        <p>为团队制作的答疑助手智能体，参加腾讯元器内容创作者挑战季活动</p>
+        <span class="tag">AI智能体</span>
+        <div class="link-hint">点击体验智能体 →</div>
+    </div>
+</a>
+
+                <a href="https://www.doubao.com/bot/Bcbns7Fp" target="_blank" class="portfolio-card ai">
+                    <div class="portfolio-card-header">🧠</div>
+                    <div class="portfolio-card-body">
+                        <h3>AI智能体</h3>
+                        <p>基于豆包平台搭建的智能体，体现AI应用与产品设计思维</p>
+                        <span class="tag">AI智能体</span>
+                        <div class="link-hint">点击体验智能体 →</div>
+                    </div>
+                </a>
+
+                <!-- 英文作品 -->
+                <a href="https://b23.tv/HEWyc6O" target="_blank" class="portfolio-card english">
+                    <div class="portfolio-card-header">🎬</div>
+                    <div class="portfolio-card-body">
+                        <h3>【山海经】全英讲解</h3>
+                        <p>自主收集素材、出演和配音的英语科普短视频</p>
+                        <span class="tag">英语视频</span>
+                        <div class="link-hint">点击观看视频 →</div>
+                    </div>
+                </a>
+
+  <!-- 英文作品 -->
+<a href="https://www.bilibili.com/video/BV1HBVW6rEip/?spm_id_from=333.1365.list.card_archive.click&vd_source=5a6b503cf0bea83c8778b23c04399c8a&share_source=weixin" target="_blank" class="portfolio-card english">
+    <div class="portfolio-card-header">🎬</div>
+    <div class="portfolio-card-body">
+        <h3>The Food We Waste Daily</h3>
+        <p>全画面绘制、素材准备与合作配音</p>
+        <span class="tag">英语视频</span>
+        <div class="link-hint">点击观看视频 →</div>
+    </div>
+</a>
+
+   <!-- 英文作品 -->
+<a href="https://www.bilibili.com/video/BV1pBVW6rEx6/?spm_id_from=333.1365.list.card_archive.click&vd_source=5a6b503cf0bea83c8778b23c04399c8a&share_source=weixin" target="_blank" class="portfolio-card english">
+    <div class="portfolio-card-header">🎬</div>
+    <div class="portfolio-card-body">
+        <h3>A story: Alex and Cyber bullying</h3>
+        <p>全画面绘制、素材准备与合作配音</p>
+        <span class="tag">英语视频</span>
+        <div class="link-hint">点击观看视频 →</div>
+    </div>
+</a>
+
+              <!-- 个人简历网站 -->
+<a href="https://arbelie.github.io/myownresume/" target="_blank" class="portfolio-card">
+    <div class="portfolio-card-header">🌐</div>
+    <div class="portfolio-card-body">
+        <h3>个人简历网站</h3>
+        <p>使用HTML/CSS自主搭建的响应式个人简历网页</p>
+        <span class="tag">网站作品</span>
+        <div class="link-hint">点击查看网站（即本网站） →</div>
+    </div>
+</a>
+
+            </div>
+        </section>
+
+        <!-- 页脚 -->
+        <div class="footer">
+            <p>Made with <span class="heart">💖</span> by 龚心怡 | 期待与您合作</p>
+            <p style="margin-top:8px;font-size:12px;">📧 gongxygracia@163.com | 📱 150-7929-2750</p>
+        </div>
+
+    </div>
+
+    <script>
+        // 滚动动画
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // 鼠标跟随效果（头部）
+        document.querySelector('.hero').addEventListener('mousemove', (e) => {
+            const rect = e.currentTarget.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width - 0.5;
+            const y = (e.clientY - rect.top) / rect.height - 0.5;
+            e.currentTarget.style.transform = `perspective(1000px) rotateY(${x * 5}deg) rotateX(${-y * 5}deg)`;
+        });
+
+        document.querySelector('.hero').addEventListener('mouseleave', (e) => {
+            e.currentTarget.style.transform = 'perspective(1000px) rotateY(0) rotateX(0)';
+        });
+    </script>
+
+</body>
+</html>
